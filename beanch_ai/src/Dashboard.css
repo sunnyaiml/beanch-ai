@@ -1,6 +1,8 @@
- it.dashboard {
+ /* Dashboard */
+.dashboard {
   padding: 20px;
   background-color: #f5f5f5;
+  font-family: 'Arial', sans-serif;
 }
 
 /* Header */
@@ -12,6 +14,11 @@
   background: white;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   margin-bottom: 20px;
+}
+
+/* Responsive Header */
+header {
+  padding: 1rem;
 }
 
 .logo {
@@ -46,6 +53,13 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+/* Responsive Grid Layout */
+.container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1rem;
 }
 
 /* Accuracy Boxes */
@@ -183,4 +197,46 @@
   width: 40%;
   height: 100%;
   background: #F44336;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  width: 100%;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr; /* Stack columns on smaller screens */
+  }
+
+  header {
+    flex-direction: column; /* Stack header items vertically */
+  }
+
+  .dropdown-menu {
+    width: 100%; /* Full width for dropdown */
+  }
+
+  .text-sm {
+    font-size: 0.875rem; /* Smaller font size */
+  }
+
+  .text-4xl {
+    font-size: 2.25rem; /* Adjust sizes for smaller screens */
+  }
+
+  .text-5xl {
+    font-size: 3rem; /* Adjust sizes for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .text-4xl {
+    font-size: 1.75rem; /* Further adjust for very small screens */
+  }
+
+  .p-4 {
+    padding: 0.5rem; /* Reduce padding */
+  }
 }

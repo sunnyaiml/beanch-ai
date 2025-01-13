@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -19,6 +19,35 @@ ChartJS.register(
   Legend
 );
 
+const DropdownMenu = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <div className="relative">
+      <button onClick={toggleDropdown} className="flex items-center space-x-2 text-white/90 hover:text-white">
+        <div className="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center">
+          J
+        </div>
+        <span>John Doe</span>
+      </button>
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
+          <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">My Courses</a>
+          <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Assignments</a>
+          <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Settings & Privacy</a>
+          <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">Help</a>
+          <a href="#" className="block px-4 py-2 text-gray-800 hover:bg-gray-100">View Profile</a>
+          <button className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-100">Sign Out</button>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const Header = () => {
   return (
     <header className="bg-[#1E293B] text-white py-4 px-6">
@@ -29,36 +58,19 @@ const Header = () => {
             <span className="ml-2 text-xl font-semibold">Firstbench</span>
           </div>
           <nav className="flex items-center space-x-6">
-            <a href="#" className="flex items-center text-white/90 hover:text-white">
-              <span className="mr-2">🏠</span> Dashboard
-            </a>
-            <a href="#" className="flex items-center text-white/90 hover:text-white">
-              <span className="mr-2">✨</span> FirstGuru
-            </a>
-            <a href="#" className="flex items-center text-white/90 hover:text-white">
-              <span className="mr-2">🏛️</span> TownHall
-            </a>
-            <a href="#" className="flex items-center text-white/90 hover:text-white">
-              <span className="mr-2">⚡</span> AI Evaluation
-            </a>
-            <a href="#" className="flex items-center text-white/90 hover:text-white">
-              <span className="mr-2">📊</span> Performance
-            </a>
-            <a href="#" className="flex items-center text-white/90 hover:text-white">
-              <span className="mr-2">📝</span> Mock Test
-            </a>
+            <a href="#" className="flex items-center text-white/90 hover:text-white">🏠 Dashboard</a>
+            <a href="#" className="flex items-center text-white/90 hover:text-white">✨ FirstGuru</a>
+            <a href="#" className="flex items-center text-white/90 hover:text-white">🏛️ TownHall</a>
+            <a href="#" className="flex items-center text-white/90 hover:text-white">⚡ AI Evaluation</a>
+            <a href="#" className="flex items-center text-white/90 hover:text-white">📊 Performance</a>
+            <a href="#" className="flex items-center text-white/90 hover:text-white">📝 Mock Test</a>
           </nav>
         </div>
         <div className="flex items-center space-x-4">
           <button className="text-white/90 hover:text-white">
             <span className="text-xl">🔔</span>
           </button>
-          <button className="flex items-center space-x-2 text-white/90 hover:text-white">
-            <div className="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center">
-              P
-            </div>
-            <span>Profile</span>
-          </button>
+          <DropdownMenu /> {/* Add the dropdown menu here */}
         </div>
       </div>
     </header>
