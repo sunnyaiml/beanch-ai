@@ -92,21 +92,26 @@ src/components/CompareAccuracy.jsx: Accuracy comparison component
 Ensure to configure necessary environment variables in .env file.
 
 📝 Notes
-Utilizes React's latest features
-Implements secure authentication mechanism
-Focuses on performance and user experience
+- Utilizes React's latest features
+- Implements secure authentication mechanism
+- Focuses on performance and user experience
+
+
 🤝 Contributing
 Fork the repository
 Create your feature branch
 Commit your changes
 Push to the branch
 Open a Pull Request
+
 📄 License
+
 Distributed under the MIT License.
 
 📞 Contact : sunny.work70@gmail.com
 Project Link: https://github.com/sunnyaiml/beanch-ai
 
+![Project Output](public/output.png)
 
 Key Enhancements:
 1. Added specific details from codebase context
