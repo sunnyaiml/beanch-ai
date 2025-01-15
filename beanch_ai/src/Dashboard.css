@@ -1,6 +1,17 @@
- /* Dashboard */
+
+/* Root Variables for Consistent Scaling */
+:root {
+  --spacing-unit: clamp(8px, 1vw, 20px);
+  --card-padding: clamp(12px, 2vw, 24px);
+  --border-radius: clamp(6px, 1vw, 12px);
+}
+
+/* Dashboard */
 .dashboard {
-  padding: 20px;
+
+  padding: var(--spacing-unit);
+  max-width: 1440px;
+  margin: 0 auto;
   background-color: #f5f5f5;
   font-family: 'Arial', sans-serif;
 }
@@ -10,10 +21,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
+
+  padding: var(--card-padding);
   background: white;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   margin-bottom: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 /* Responsive Header */
@@ -65,16 +80,22 @@ header {
 /* Accuracy Boxes */
 .accuracy-boxes {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+
+
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-unit);
 }
 
 .accuracy-box {
   background: white;
-  padding: 15px;
-  border-radius: 8px;
+
+
+  padding: var(--card-padding);
+  border-radius: var(--border-radius);
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  min-height: 200px;
+
+  height: auto;
+  min-height: unset;
 }
 
 .box-header {
@@ -86,29 +107,38 @@ header {
 /* Metric Cards */
 .metric-cards {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+
+
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-unit);
 }
 
 .card {
   background: white;
-  padding: 15px;
-  border-radius: 8px;
+
+
+  padding: var(--card-padding);
+  border-radius: var(--border-radius);
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  height: auto;
+  min-height: unset;
 }
 
 .subject-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+
+  gap: calc(var(--spacing-unit) / 2);
   margin-top: 10px;
 }
 
 .subject-tags span {
-  padding: 4px 12px;
+
+  padding: calc(var(--spacing-unit) / 2) var(--spacing-unit);
   border-radius: 20px;
   color: white;
-  font-size: 12px;
+
+  font-size: clamp(10px, 1vw, 14px);
 }
 
 .time-content {
@@ -116,7 +146,8 @@ header {
 }
 
 .percentage {
-  font-size: 48px;
+
+  font-size: clamp(24px, 5vw, 48px);
   color: #2196F3;
   font-weight: bold;
 }
@@ -128,21 +159,29 @@ header {
 /* Charts Section */
 .charts-section {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+
+
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--spacing-unit);
 }
 
 .chart-box {
   background: white;
-  padding: 20px;
-  border-radius: 8px;
+
+
+  padding: var(--card-padding);
+  border-radius: var(--border-radius);
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  height: auto;
+  min-height: unset;
 }
 
 .time-markers {
   display: flex;
   gap: 15px;
   margin: 15px 0;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .time-markers span {
@@ -177,7 +216,8 @@ header {
 }
 
 .progress-bar {
-  height: 8px;
+
+  height: clamp(6px, 1vw, 10px);
   background: #eee;
   border-radius: 4px;
   position: relative;
@@ -204,14 +244,30 @@ header {
   width: 100%;
 }
 
+/* Profile Dropdown Responsive Updates */
+.dropdown-content {
+  width: min(280px, 90vw);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {
   .container {
     grid-template-columns: 1fr; /* Stack columns on smaller screens */
   }
 
-  header {
-    flex-direction: column; /* Stack header items vertically */
+
+
+  .header {
+    flex-direction: column;
+    gap: var(--spacing-unit);
+  }
+
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
   }
 
   .dropdown-menu {
@@ -238,5 +294,40 @@ header {
 
   .p-4 {
     padding: 0.5rem; /* Reduce padding */
+  }
+
+  .dashboard-content {
+    gap: calc(var(--spacing-unit) * 1.5);
+  }
+  
+  .chart-box {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .ruler {
+    min-width: 400px;
+  }
+}
+
+/* Tablet Optimizations */
+@media (max-width: 1024px) {
+  .charts-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Print Media Query */
+@media print {
+  .dashboard {
+    background: white;
+  }
+  
+  .header {
+    display: none;
+  }
+  
+  .chart-box {
+    break-inside: avoid;
   }
 }

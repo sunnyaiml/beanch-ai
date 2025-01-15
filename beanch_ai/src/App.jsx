@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
+import OpenAI from 'openai';
 
 ChartJS.register(
   CategoryScale,
@@ -48,31 +49,106 @@ const DropdownMenu = () => {
   );
 };
 
+// const Header = () => {
+//   return (
+//     <header className="bg-[#1E293B] text-white py-4 px-6">
+//       <div className="flex items-center justify-between">
+//         <div className="flex items-center space-x-8">
+//           <div className="flex items-center">
+//             <img src="/firstbench-logo.svg" alt="Firstbench" className="h-8" />
+//             <span className="ml-2 text-xl font-semibold">Firstbench</span>
+//           </div>
+//           <nav className="flex items-center space-x-6">
+//             <a href="#" className="flex items-center text-white/90 hover:text-white">🏠 Dashboard</a>
+//             <a href="#" className="flex items-center text-white/90 hover:text-white">✨ FirstGuru</a>
+//             <a href="#" className="flex items-center text-white/90 hover:text-white">🏛️ TownHall</a>
+//             <a href="#" className="flex items-center text-white/90 hover:text-white">⚡ AI Evaluation</a>
+//             <a href="#" className="flex items-center text-white/90 hover:text-white">📊 Performance</a>
+//             <a href="#" className="flex items-center text-white/90 hover:text-white">📝 Mock Test</a>
+//           </nav>
+//         </div>
+//         <div className="flex items-center space-x-4">
+//           <button className="text-white/90 hover:text-white">
+//             <span className="text-xl">🔔</span>
+//           </button>
+//           <DropdownMenu /> {/* Add the dropdown menu here */}
+//         </div>
+//       </div>
+//     </header>
+//   );
+// };
+
 const Header = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const mobileMenuItems = [
+    { icon: '🏠', text: 'Dashboard' },
+    { icon: '✨', text: 'FirstGuru' },
+    { icon: '🏛️', text: 'TownHall' },
+    { icon: '⚡', text: 'AI Evaluation' },
+    { icon: '📊', text: 'Performance' },
+    { icon: '📝', text: 'Mock Test' }
+  ];
+
   return (
-    <header className="bg-[#1E293B] text-white py-4 px-6">
+    <header className="bg-[#1E293B] text-white py-4 px-6 relative">
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-8">
-          <div className="flex items-center">
-            <img src="/firstbench-logo.svg" alt="Firstbench" className="h-8" />
-            <span className="ml-2 text-xl font-semibold">Firstbench</span>
-          </div>
-          <nav className="flex items-center space-x-6">
-            <a href="#" className="flex items-center text-white/90 hover:text-white">🏠 Dashboard</a>
-            <a href="#" className="flex items-center text-white/90 hover:text-white">✨ FirstGuru</a>
-            <a href="#" className="flex items-center text-white/90 hover:text-white">🏛️ TownHall</a>
-            <a href="#" className="flex items-center text-white/90 hover:text-white">⚡ AI Evaluation</a>
-            <a href="#" className="flex items-center text-white/90 hover:text-white">📊 Performance</a>
-            <a href="#" className="flex items-center text-white/90 hover:text-white">📝 Mock Test</a>
-          </nav>
+        {/* Mobile Menu Toggle - Left Side */}
+        <div className="md:hidden">
+          <button 
+            onClick={toggleMobileMenu} 
+            className="text-white focus:outline-none"
+          >
+            {isMobileMenuOpen ? '✖' : '☰'}
+          </button>
         </div>
+
+        {/* Logo Section */}
+        <div className="flex items-center">
+          <img src="/firstbench-logo.svg" alt="Firstbench" className="h-8" />
+          <span className="ml-2 text-xl font-semibold">Firstbench</span>
+        </div>
+
+        {/* Desktop Navigation - Center */}
+        <nav className="hidden md:flex items-center space-x-6">
+          <a href="#" className="flex items-center text-white/90 hover:text-white">🏠 Dashboard</a>
+          <a href="#" className="flex items-center text-white/90 hover:text-white">✨ FirstGuru</a>
+          <a href="#" className="flex items-center text-white/90 hover:text-white">🏛️ TownHall</a>
+          <a href="#" className="flex items-center text-white/90 hover:text-white">⚡ AI Evaluation</a>
+          <a href="#" className="flex items-center text-white/90 hover:text-white">📊 Performance</a>
+          <a href="#" className="flex items-center text-white/90 hover:text-white">📝 Mock Test</a>
+        </nav>
+
+        {/* Right Section - Notification and Profile */}
         <div className="flex items-center space-x-4">
           <button className="text-white/90 hover:text-white">
             <span className="text-xl">🔔</span>
           </button>
-          <DropdownMenu /> {/* Add the dropdown menu here */}
+          <DropdownMenu />
         </div>
       </div>
+
+      {/* Mobile Menu Dropdown */}
+      {isMobileMenuOpen && (
+        <div className="absolute top-full left-0 w-full bg-[#1E293B] md:hidden">
+          <div className="flex flex-col">
+            {mobileMenuItems.map((item, index) => (
+              <a 
+                key={index} 
+                href="#" 
+                className="flex items-center p-4 border-t border-white/10 text-white/90 hover:bg-white/10"
+              >
+                <span className="mr-2">{item.icon}</span>
+                {item.text}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </header>
   );
 };
@@ -127,11 +203,32 @@ const ResultSection = () => {
 };
 
 const CompareAccuracyBox = () => (
-  <div className="bg-white rounded-lg p-6 shadow-sm h-[300px] hover:shadow-md transition-shadow">
+  <div className="
+    bg-white 
+    rounded-lg 
+    p-4 
+    md:p-6 
+    shadow-sm 
+    w-full 
+    max-w-full 
+    md:max-w-[600px] 
+    lg:max-w-[800px] 
+    mx-auto 
+    hover:shadow-md 
+    transition-all 
+    duration-300 
+    ease-in-out
+  ">
     <div className="flex items-start space-x-2 mb-4">
-      <input 
-        type="checkbox" 
-        className="mt-1 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+      <input
+        type="checkbox"
+        className="
+          mt-1 
+          rounded 
+          border-gray-300 
+          text-indigo-600 
+          focus:ring-indigo-500
+        "
         title="Select to compare accuracy metrics"
       />
       <div>
@@ -141,8 +238,15 @@ const CompareAccuracyBox = () => (
         </p>
       </div>
     </div>
-    <div className="flex items-center justify-center h-[200px] text-gray-400">
-      <p className="text-center">
+    <div className="
+      flex 
+      items-center 
+      justify-center 
+      h-[150px] 
+      md:h-[200px] 
+      text-gray-400
+    ">
+      <p className="text-center text-sm md:text-base">
         No data selected<br />
         Select checkbox to compare accuracy
       </p>
@@ -238,73 +342,85 @@ const Suggestions = () => (
   </div>
 );
 
+
 const Dashboard = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
+      
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-12 gap-6">
-          {/* Left Column */}
-          <div className="col-span-3">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+          {/* Left Column - Full width on mobile, 3 columns on larger screens */}
+          <div className="md:col-span-3 w-full">
             <ResultSection />
           </div>
-          
-          {/* Right Column */}
-          <div className="col-span-9 space-y-6">
-            {/* Compare Accuracy Boxes */}
-            <div className="grid grid-cols-3 gap-6 mb-6">
+         
+          {/* Right Column - Full width on mobile, 9 columns on larger screens */}
+          <div className="md:col-span-9 w-full space-y-6">
+            {/* Compare Accuracy Boxes - Responsive Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
               <CompareAccuracyBox />
               <CompareAccuracyBox />
               <CompareAccuracyBox />
             </div>
-            
-            {/* Metrics Grid */}
-            <div className="grid grid-cols-4 gap-6">
+           
+            {/* Metrics Grid - Responsive Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <SubjectUnderstanding />
               <ResponseTime />
               <ApproachData />
               <Suggestions />
             </div>
-            
-            {/* Charts */}
-            <div className="grid grid-cols-2 gap-6">
+
+      
+           
+            {/* Charts - Responsive Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="bg-white rounded-lg p-6 shadow-sm">
                 <h3 className="font-medium mb-4">Compare Accuracy</h3>
-                <div className="flex space-x-4 mb-4">
-                  <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded">10min</span>
-                  <span className="text-gray-500">15min</span>
-                  <span className="text-gray-500">30min</span>
-                  <span className="text-gray-500">45min</span>
+                
+                {/* Responsive time selection */}
+                <div className="flex flex-wrap space-x-2 mb-4">
+                  <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded mb-2">10min</span>
+                  <span className="text-gray-500 px-3 py-1 mb-2">15min</span>
+                  <span className="text-gray-500 px-3 py-1 mb-2">30min</span>
+                  <span className="text-gray-500 px-3 py-1 mb-2">45min</span>
                 </div>
-                <Bar
-                  data={{
-                    labels: ['1', '2', '3', '4', '5', '6', '7'],
-                    datasets: [{
-                      data: [85, 45, 35, 60, 55, 45, 65],
-                      backgroundColor: '#818CF8'
-                    }]
-                  }}
-                  options={{
-                    scales: {
-                      y: {
-                        beginAtZero: true,
-                        max: 100,
-                        ticks: {
-                          callback: value => `${value}%`
+                
+                <div className="chart-container" style={{ height: '29rem', width: '30rem' }}>
+                  <Bar
+                    data={{
+                      labels: ['1', '2', '3', '4', '5', '6', '7'],
+                      datasets: [{
+                        data: [85, 45, 35, 60, 55, 45, 65],
+                        backgroundColor: '#818CF8'
+                      }]
+                    }}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: true,
+                      scales: {
+                        y: {
+                          beginAtZero: true,
+                          max: 100,
+                          ticks: {
+                            callback: value => `${value}%`
+                          }
+                        }
+                      },
+                      plugins: {
+                        legend: {
+                          display: false
                         }
                       }
-                    },
-                    plugins: {
-                      legend: {
-                        display: false
-                      }
-                    }
-                  }}
-                />
+                    }}
+                  />
+                </div>
               </div>
-              
+             
               <div className="bg-white rounded-lg p-6 shadow-sm">
                 <h3 className="font-medium mb-4">Time Taken</h3>
+                
                 <div className="relative">
                   <div className="flex justify-between mb-2">
                     {[...Array(9)].map((_, i) => (
@@ -314,12 +430,14 @@ const Dashboard = () => {
                       </div>
                     ))}
                   </div>
+                  
                   <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div className="h-full w-1/3 bg-emerald-500"></div>
                     <div className="h-full w-2/5 bg-red-500" style={{ marginLeft: '33.33%' }}></div>
                   </div>
                 </div>
-                <p className="text-gray-500 text-sm mt-4">
+                
+                <p className="text-gray-500 text-sm mt-4 hidden md:block">
                   Lorem ipsum is simply dummy text of the printing and typesetting industry
                 </p>
               </div>
@@ -330,5 +448,6 @@ const Dashboard = () => {
     </div>
   );
 };
+
 
 export default Dashboard;

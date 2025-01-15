@@ -7,16 +7,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-# Dependencies
+# Dependency directories
 node_modules/
-node_modules/*
+node_modules/**
 !node_modules/.gitkeep
-
-# Prevent tracking specific files/folders
-node_modules/**/*.md
-node_modules/**/*.txt
-node_modules/**/*.map
-
 
 # Build output
 dist
@@ -30,3 +24,7 @@ dist-ssr
 .DS_Store
 *.suo
 *.ntvs*
+
+# Ignore package-lock and other generated files
+package-lock.json
+yarn.lock

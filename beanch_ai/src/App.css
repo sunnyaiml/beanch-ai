@@ -1515,6 +1515,14 @@ body {
   border-radius: 8px;
 }
 
+
+canvas {
+  box-sizing: border-box;
+  display: block;
+  height: 19rem;
+  width: 25rem;
+}
+
 /* Tooltip customization */
 .chartjs-tooltip {
   background: #1F2937 !important;
@@ -1814,24 +1822,60 @@ body {
 
 /* Responsive Design */
 @media (max-width: 1280px) {
-  .dashboard {
-    grid-template-columns: 300px 1fr;
+  .dashboard-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
 @media (max-width: 1024px) {
-  .dashboard {
-    grid-template-columns: 1fr;
-  }
-  
-  .metrics-grid {
+  .dashboard-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (max-width: 768px) {
-  .metrics-grid,
-  .charts-row {
+@media (max-width: 640px) {
+  .dashboard-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .compare-accuracy {
+    width: 100%;
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
+  }
+
+  .compare-accuracy .chart-container {
+    min-width: 300px; /* Ensure minimum width */
+    max-width: 100%;
+    height: 180px; /* Reduced height for mobile */
+  }
+
+  .compare-accuracy .time-markers {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .compare-accuracy .time-markers span {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .compare-accuracy .chart-container {
+    height: 150px; /* Further reduced for smaller screens */
+  }
+
+  .compare-accuracy .time-markers {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .compare-accuracy .time-markers span {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.25rem;
   }
 }
