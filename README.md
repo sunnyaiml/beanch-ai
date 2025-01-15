@@ -111,7 +111,7 @@ Distributed under the MIT License.
 📞 Contact : sunny.work70@gmail.com
 Project Link: https://github.com/sunnyaiml/beanch-ai
 
-![Project Output](public/output.png)
+![Project Output](file:///D:/frist_beanch_ai/beanch_ai/public/output.png)
 
 Key Enhancements:
 1. Added specific details from codebase context
