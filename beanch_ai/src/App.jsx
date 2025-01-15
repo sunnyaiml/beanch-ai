@@ -33,7 +33,7 @@ const DropdownMenu = () => {
         <div className="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center">
           J
         </div>
-        <span>John Doe</span>
+        <span>Sunny</span>
       </button>
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
